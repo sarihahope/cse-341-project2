@@ -15,7 +15,7 @@
     "/": {
       "get": {
         "tags": [
-          "HelloW World"
+          "Hello World"
         ],
         "description": "",
         "responses": {
