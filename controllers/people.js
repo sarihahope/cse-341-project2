@@ -2,27 +2,27 @@ const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 const getPeople = async (req, res) => {
-    // #swagger.tags=['People']
-    const result = await mongodb.getDatabase().db().collection('People').find();
-    result.toArray().then((People) => {
+        // #swagger.tags=['People']
+    const result = await mongodb.getDatabase().db().collection('people').find();
+    result.toArray().then((people) => {
          res.setHeader('Content-Type', 'application/json');
-         res.status(200).json(People);
+         res.status(200).json(people);
     });
 };
 
 const getSingle = async (req, res) => {
-        // #swagger.tags=['People']
-    const userId = new ObjectId(req.params.id);
-   const result = await mongodb.getDatabase().db().collection('People').find({_id: userId});
-   result.toArray().then((People) => {
+            // #swagger.tags=['People']
+    const userID = new ObjectId(req.params.id);
+   const result = await mongodb.getDatabase().db().collection('people').find({_id: userID});
+   result.toArray().then((people) => {
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(People[0]);
+        res.status(200).json(people[0]);
    });
 };
 
-const createPeople = async (req, res) => {
-        // #swagger.tags=['People']
-    const contact = {
+const addPerson = async (req, res) => {
+            // #swagger.tags=['People']
+    const people = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         favoriteFood: req.body.favoriteFood,
@@ -30,8 +30,8 @@ const createPeople = async (req, res) => {
         car: req.body.car,
         randomNumber: req.body.randomNumber,
         randomDate: req.body.randomDate
-    };
-    const result = await mongodb.getDatabase().db().collection('People').insertOne(contact);
+    };    
+    const result = await mongodb.getDatabase().db().collection('people').insertOne(people);
     if (result.acknowledged) {
         res.status(204).send();
     } else {
@@ -39,42 +39,44 @@ const createPeople = async (req, res) => {
     }
 };
 
-const updatePeople = async (req, res) => {
-        // #swagger.tags=['People']
+const updatePerson = async (req, res) => {
+            // #swagger.tags=['People']
     const userId = new ObjectId(req.params.id);
-    const contact = {
+    const people = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         favoriteFood: req.body.favoriteFood,
         favoriteAnimal: req.body.favoriteAnimal,
         car: req.body.car,
         randomNumber: req.body.randomNumber,
-        randomDate: req.body.randomDate
-
+        randomNDate: req.body.randomDate
     };
-    const result = await mongodb.getDatabase().db().collection('People').replaceOne({_id: userId}, contact);
+    const result = await mongodb.getDatabase().db().collection('people').replaceOne({_id: userId}, people);
     if (result.modifiedCount > 0) {
         res.status(204).send();
     } else {
-        res.status(500).json(result.error || 'Failed to update contact');
+        res.status(500).json(result.error || 'Failed to update person');
     }
-}
+};
 
-const deletePeople = async (req, res) => {
-        // #swagger.tags=['People']
-    const userId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('People').deleteOne({_id: userId});
-    if (result.deletedCount > 0) {
-        res.status(204).send();
-    } else {
-        res.status(500).json(result.error || 'Failed to delete contact');
-    }
+const deletePerson = async (req, res) => {
+            // #swagger.tags=['People']
+const userId = new ObjectId(req.params.id);
+const result = await mongodb.getDatabase().db().collection('people').deleteOne({_id: userId});
+if (result.deletedCount > 0) {
+    res.status(204).send();
+} else {
+    res.status(500).json(result.error || 'Failed to delete people');
 }
+};
+
+
 
 module.exports = {
     getPeople,
     getSingle,
-    createPeople,
-    updatePeople,
-    deletePeople
+    addPerson,
+    updatePerson,
+    deletePerson
 };
+
