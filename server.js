@@ -74,6 +74,9 @@ app.get('/github/callback', passport.authenticate('github', {
         res.redirect('/');
     });
 
+process.on('uncaughtException', (err, origin) => {
+    console.log(process.stderr.fd, `Caught in exception: ${err}\n` + `Exception origin: ${origin}`);
+});
 
 mongodb.initdb((err) => {
     if (err) {

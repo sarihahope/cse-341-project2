@@ -3,22 +3,52 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getContacts = async (req, res) => {
     // #swagger.tags=['Contacts']
-    const result = await mongodb.getDatabase().db().collection('contacts').find();
-    result.toArray().then((contacts) => {
-         res.setHeader('Content-Type', 'application/json');
-         res.status(200).json(contacts);
-    });
+    mongodb
+        .getDatabase()
+        .db()
+        .collection('contacts')
+        .find()
+        .toArray((err, contacts) => {
+            if (err) {
+                res.status(500).json(err);
+            } else {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(contacts);
+            }
+        });
 };
+
+        
+//     const result = await mongodb.getDatabase().db().collection('contacts').find();
+//     result.toArray().then((contacts) => {
+//          res.setHeader('Content-Type', 'application/json');
+//          res.status(200).json(contacts);
+//     });
+// };
 
 const getSingle = async (req, res) => {
         // #swagger.tags=['Contacts']
     const userId = new ObjectId(req.params.id);
-   const result = await mongodb.getDatabase().db().collection('contacts').find({_id: userId});
-   result.toArray().then((contacts) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(contacts[0]);
-   });
+    mongodb
+    .getDatabase()
+    .db()
+    .collection('contacts')
+    .find({_id: userId})
+    .toArray((err, contacts) => {
+        if (err) {
+            res.status(500).json(err);
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(contacts[0])
+        }
+    });
 };
+//    const result = await mongodb.getDatabase().db().collection('contacts').find({_id: userId});
+//    result.toArray().then((contacts) => {
+//         res.setHeader('Content-Type', 'application/json');
+//         res.status(200).json(contacts[0]);
+//    });
+
 
 const createContact = async (req, res) => {
         // #swagger.tags=['Contacts']
