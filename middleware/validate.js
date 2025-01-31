@@ -31,7 +31,6 @@ const savePeople = (req, res, next) => {
     randomNumber: 'string',
     randomDate: 'string'
   };
-  
   validator(req.body, validationRule, {}, (err, status) => {
     if (!status) {
       res.status(412).send({
