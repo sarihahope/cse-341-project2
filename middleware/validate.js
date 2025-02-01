@@ -8,6 +8,7 @@ const saveContact = (req, res, next) => {
     favoriteColor: 'required|string',
     birthday: 'string'
   };
+  
   validator(req.body, validationRule, {}, (err, status) => {
     if (!status) {
       res.status(412).send({
