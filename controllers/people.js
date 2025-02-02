@@ -3,51 +3,51 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getPeople = async (req, res) => {
         // #swagger.tags=['People']
-            mongodb
-                .getDatabase()
-                .db()
-                .collection('people')
-                .find()
-                .toArray((err, people) => {
-                    if (err) {
-                        res.status(500).json(err);
-                    } else {
-                        res.setHeader('Content-Type', 'application/json');
-                        res.status(200).json(people);
-                    }
-                });
-};
-//     const result = await mongodb.getDatabase().db().collection('people').find();
-//     result.toArray().then((people) => {
-//          res.setHeader('Content-Type', 'application/json');
-//          res.status(200).json(people);
-//     });
+//             mongodb
+//                 .getDatabase()
+//                 .db()
+//                 .collection('people')
+//                 .find()
+//                 .toArray((err, people) => {
+//                     if (err) {
+//                         res.status(500).json(err);
+//                     } else {
+//                         res.setHeader('Content-Type', 'application/json');
+//                         res.status(200).json(people);
+//                     }
+//                 });
 // };
+    const result = await mongodb.getDatabase().db().collection('people').find();
+    result.toArray().then((people) => {
+         res.setHeader('Content-Type', 'application/json');
+         res.status(200).json(people);
+    });
+};
 
 const getSingle = async (req, res) => {
             // #swagger.tags=['People']
     const userID = new ObjectId(req.params.id);
-        mongodb
-            .getDatabase()
-            .db()
-            .collection('people')
-            .find()
-            .toArray((err, people) => {
-                if (err) {
-                    res.status(500).json(err);
-                } else {
-                    res.setHeader('Content-Type', 'application/json');
-                    res.status(200).json(people[0])
-                }
-            });
-};
-
-//    const result = await mongodb.getDatabase().db().collection('people').find({_id: userID});
-//    result.toArray().then((people) => {
-//         res.setHeader('Content-Type', 'application/json');
-//         res.status(200).json(people[0]);
-//    });
+//         mongodb
+//             .getDatabase()
+//             .db()
+//             .collection('people')
+//             .find()
+//             .toArray((err, people) => {
+//                 if (err) {
+//                     res.status(500).json(err);
+//                 } else {
+//                     res.setHeader('Content-Type', 'application/json');
+//                     res.status(200).json(people[0])
+//                 }
+//             });
 // };
+
+   const result = await mongodb.getDatabase().db().collection('people').find({_id: userID});
+   result.toArray().then((people) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(people[0]);
+   });
+};
 
 const addPerson = async (req, res) => {
             // #swagger.tags=['People']
