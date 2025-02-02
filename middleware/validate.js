@@ -1,15 +1,49 @@
-const validator = require('../helpers/validate');
+const validate = require('validate.js');
+const moment = require('moment');
 
-const saveContact = (req, res, next) => {
+const datetimeValidator = {
+  dateOnly: function(value, options, key, attributes) {
+    if (!value) return;
+    const isValid = moment(value, "YYYY-MM-DD", true).isValid();
+    if (!isValid) {
+      return `must be a valid date in format YYYY-MM-DD`;
+    }
+  }
+};
+
+const validateContact = (req, res, next) => {
   const validationRule = {
-    firstName: 'required|string',
-    lastName: 'required|string',
-    email: 'required|email',
-    favoriteColor: 'required|string',
-    birthday: 'string'
+    firstName: {
+      presence: { allowEmpty: false },
+      format: {
+        pattern: "^[A-Za-z]+$",
+        message: "can only contain letters"
+      }
+    },
+    lastName: {
+      presence: { allowEmpty: false },
+      format: {
+        pattern: "^[A-Za-z]+$",
+        message: "can only contain letters"
+      }
+    },
+    email: {
+      presence: { allowEmpty: false },
+      email: true
+    },
+    favoriteColor: {
+      presence: { allowEmpty: false },
+      format: {
+        pattern: "^[A-Za-z]+$",
+        message: "can only contain letters"
+      }
+    },
+    birthday: {
+      datetime: datetimeValidator.dateOnly 
+    }
   };
-  
-  validator(req.body, validationRule, {}, (err, status) => {
+
+  validate(req.body, validationRule, {}, (err, status) => {
     if (!status) {
       res.status(412).send({
         success: false,
@@ -17,22 +51,34 @@ const saveContact = (req, res, next) => {
         data: err
       });
     } else {
-      next();
+      next(); 
     }
   });
 };
 
-const savePeople = (req, res, next) => {
+
+const validatePeople = (req, res, next) => {
   const validationRule = {
-    firstName: 'required|string',
-    lastName: 'required|string',
-    favoriteFood: 'required|string',
-    favoriteAnimal: 'required|string',
-    car: 'required|string',
-    randomNumber: 'string',
-    randomDate: 'string'
+    firstName: {
+      presence: { allowEmpty: false },
+      format: {
+        pattern: "^[A-Za-z]+$",
+        message: "can only contain letters"
+      }
+    },
+    lastName: {
+      presence: { allowEmpty: false },
+      format: {
+        pattern: "^[A-Za-z]+$",
+        message: "can only contain letters"
+      }
+    },
+    randomDate: {
+      datetime: datetimeValidator.dateOnly
+    }
   };
-  validator(req.body, validationRule, {}, (err, status) => {
+
+  validate(req.body, validationRule, {}, (err, status) => {
     if (!status) {
       res.status(412).send({
         success: false,
@@ -40,12 +86,12 @@ const savePeople = (req, res, next) => {
         data: err
       });
     } else {
-      next();
+      next(); 
     }
   });
 };
 
 module.exports = {
-  saveContact,
-  savePeople
+  validateContact,
+  validatePeople
 };

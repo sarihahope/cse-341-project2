@@ -2,7 +2,7 @@
 GET http://localhost:3000/people
 
 ### Get contact by id 
-Get http://localhost:3000/people/678eabacad33008533eeeb42
+Get http://localhost:3000/people/6792b3610214dc189cecd903
 
 ### Create a new person 
 POST http://localhost:3000/people HTTP/1.1 
@@ -15,7 +15,7 @@ Content-Type: application/json
     "favoriteAnimal": "Dog",
     "car": "Mystery Machine",
     "randomNumber": "1234567890",
-    "randomDate": "10/31/2024"
+    "randomDate": "2004-04-12"
 }
 
 ### Update a people
@@ -29,7 +29,7 @@ Content-Type: application/json
     "favoriteAnimal": "Dog",
     "car": "Mystery Machine",
     "randomNumber": "1234567890",
-    "randomDate": "10/31/2024"
+    "randomDate": "1992-07-08"
 }
 
 ### Delete a person
@@ -52,7 +52,7 @@ Content-Type: application/json
     "lastName": "Who", 
     "email": "thetardis@unknown.com", 
     "favoriteColor": "blue", 
-    "birthday": "1990-01-01"
+    "birthday": "1992-07-08"
 }
 
 ### Update a contact 
