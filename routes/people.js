@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const peopleController = require('../controllers/people');
 const { isAuthenticated } = require('../middleware/authenticate');
+// const validation = require('../middleware/validate');
 
 const handleError = (res, error) => {
   if (error instanceof ValidationError) {

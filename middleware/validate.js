@@ -4,7 +4,7 @@ const moment = require('moment');
 const datetimeValidator = {
   dateOnly: function(value, options, key, attributes) {
     if (!value) return;
-    const isValid = moment(value, "YYYY-MM-DD", true).isValid();
+    const isValid = moment(value, 'YYYY-MM-DD', true).isValid();
     if (!isValid) {
       return `must be a valid date in format YYYY-MM-DD`;
     }
@@ -16,15 +16,15 @@ const validateContact = (req, res, next) => {
     firstName: {
       presence: { allowEmpty: false },
       format: {
-        pattern: "^[A-Za-z]+$",
-        message: "can only contain letters"
+        pattern: '^[A-Za-z]+$',
+        message: 'can only contain letters'
       }
     },
     lastName: {
       presence: { allowEmpty: false },
       format: {
-        pattern: "^[A-Za-z]+$",
-        message: "can only contain letters"
+        pattern: '^[A-Za-z]+$',
+        message: 'can only contain letters'
       }
     },
     email: {
@@ -34,8 +34,8 @@ const validateContact = (req, res, next) => {
     favoriteColor: {
       presence: { allowEmpty: false },
       format: {
-        pattern: "^[A-Za-z]+$",
-        message: "can only contain letters"
+        pattern: '^[A-Za-z]+$',
+        message: 'can only contain letters'
       }
     },
     birthday: {
@@ -62,15 +62,15 @@ const validatePeople = (req, res, next) => {
     firstName: {
       presence: { allowEmpty: false },
       format: {
-        pattern: "^[A-Za-z]+$",
-        message: "can only contain letters"
+        pattern: '^[A-Za-z]+$',
+        message: 'can only contain letters'
       }
     },
     lastName: {
       presence: { allowEmpty: false },
       format: {
-        pattern: "^[A-Za-z]+$",
-        message: "can only contain letters"
+        pattern: '^[A-Za-z]+$',
+        message: 'can only contain letters'
       }
     },
     randomDate: {
